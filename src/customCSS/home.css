@@ -145,9 +145,21 @@ box-shadow:  22px 22px 100px #38363c,
     width: 100%;
 }
 
+.ship-container-2{
+    position: absolute;
+    bottom: 16vh;
+    width: 100%;
+}
+
 .ship{
     width: 100px;
     aspect-ratio: 1;
+}
+
+.ship-2{
+    width: 100px;
+    aspect-ratio: 1;
+    transform: translate(0, 20px);
 }
 
 .ship img{

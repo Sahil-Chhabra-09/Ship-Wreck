@@ -145,7 +145,7 @@ function Home() {
 
         {/* Control Panel */}
         <div className="controls">
-          <div className="space-x-2 md:space-x-12">
+          <div className="space-x-2 md:space-x-12 max-sm:space-x-0 max-sm:w-full max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center">
             <button onClick={!loading ? handleCargo : () => {}}>
               Add Cargo
             </button>

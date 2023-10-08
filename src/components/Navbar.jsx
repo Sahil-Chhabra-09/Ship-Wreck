@@ -16,7 +16,12 @@ function Navbar({ setShowInstructions }) {
       >
         Instructions
       </div>
-      <div className="ship-wreck">Ship Wreck</div>
+      <div className="ship-wreck hidden md:block">Ship Wreck</div>
+      <img
+        src="../favicon.ico"
+        style={{ width: "50px", height: "50px" }}
+        className="md:hidden"
+      ></img>
       <div className="cursor-pointer">High Scores</div>
     </div>
   );
