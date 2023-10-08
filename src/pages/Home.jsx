@@ -4,6 +4,7 @@ import drop from "../sound/drop.mp3";
 import success from "../sound/success.mp3";
 import failed from "../sound/failed.mp3";
 import levelComplete from "../sound/levelComplete.mp3";
+import background from "../sound/background.mp3";
 
 function Home() {
   const [deliver, setDeliver] = useState(false);
@@ -13,10 +14,13 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [limits, setLimits] = useState([]);
   const [drowned, setDrowned] = useState(false);
+  const [isBgMusicDisabled, setisBgMusicDisabled] = useState(true);
+  const [intervalId, setIntervalId] = useState(null);
   const drop_effect = new Audio(drop);
   const success_effect = new Audio(success);
   const failed_effect = new Audio(failed);
   const levelComplete_effect = new Audio(levelComplete);
+  const background_effect = new Audio(background);
 
   useEffect(() => {
     generateRandomNumbers(50, 9);
@@ -25,6 +29,22 @@ function Home() {
     generateRandomNumbers(50, 9);
     generateRandomNumbers(50, 9);
   }, []);
+
+  useEffect(() => {
+    if (intervalId === null && isBgMusicDisabled === false) {
+      const tempInterval = setInterval(checkBackgroundAudio, 500);
+      setIntervalId(tempInterval);
+    } else {
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+        setIntervalId(null);
+      }
+    }
+  }, [isBgMusicDisabled]);
+
+  const checkBackgroundAudio = () => {
+    background_effect.play();
+  };
 
   useEffect(() => {
     if (ships <= 0) {
@@ -51,7 +71,7 @@ function Home() {
   const handleDeliver = () => {
     setDeliver(true);
     setShips((prev) => prev - 1);
-    if (cargo !== 0) {
+    if (cargo !== 0 && isBgMusicDisabled === true) {
       success_effect.play();
     }
     setSupplied((prev) => prev + cargo);
@@ -63,7 +83,7 @@ function Home() {
 
   useEffect(() => {
     if (cargo === 0 && drowned) {
-      failed_effect.play();
+      if (isBgMusicDisabled) failed_effect.play();
       setShips((prev) => prev - 1);
       setCargo(0);
       setTimeout(() => {
@@ -82,17 +102,31 @@ function Home() {
       setCargo(0);
       return;
     }
-    drop_effect.play();
+    if (isBgMusicDisabled) drop_effect.play();
     setCargo((prev) => prev + 1);
+  };
+
+  const handlePlayMusic = () => {
+    setisBgMusicDisabled((prev) => !prev);
   };
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <div className="parent">
+        {/*Numbers */}
         <div className="display flex justify-center items-center space-x-2">
           <div>Ships : {ships}</div>
           <div>Cargo : {cargo}</div>
           <div>Supplied : {supplied}</div>
         </div>
+
+        <div className="sun">
+          <img src="../sun.png" />
+        </div>
+
+        {/*prevents drag, drop and svg selection of ship and waves */}
+        <div className="overlook"></div>
+
+        {/* Entirety of ship and waves */}
         <div className="ship-container">
           <div
             className={`ship ${deliver ? "shipgo" : "shipcome"} ${
@@ -108,6 +142,8 @@ function Home() {
             <img className="wave wave4" src="../waves/wave4.svg"></img>
           </div>
         </div>
+
+        {/* Control Panel */}
         <div className="controls">
           <div className="space-x-2 md:space-x-12">
             <button onClick={!loading ? handleCargo : () => {}}>
@@ -117,6 +153,16 @@ function Home() {
               Deliver
             </button>
           </div>
+        </div>
+        <div
+          className="music absolute bottom-0 right-0 cursor-pointer"
+          onClick={handlePlayMusic}
+        >
+          <img
+            src="../music.png"
+            className={`${isBgMusicDisabled && "disabled"}`}
+          />
+          <div className={`slash ${!isBgMusicDisabled && "hidden"}`}>/</div>
         </div>
       </div>
     </div>

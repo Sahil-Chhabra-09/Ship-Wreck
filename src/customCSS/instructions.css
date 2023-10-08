@@ -1,0 +1,30 @@
+.modal{
+    background-color: rgba(0, 0, 0, 0.589);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    border-radius: 5px;
+}
+
+button{
+    border: 2px solid gray;
+    width: 160px;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.disabled{
+    opacity: 0.4;
+}
+
+.heading{
+    background-color: #68410a;
+    color:white;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    position: relative;
+}
