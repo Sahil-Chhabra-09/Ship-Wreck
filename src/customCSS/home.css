@@ -1,0 +1,165 @@
+.parent{
+    border: 2px solid maroon;
+    height: 80vh;
+    width: 80vw;
+    display: flex;
+    position: relative;
+    align-items: center;
+    flex-direction: column;
+}
+
+.display{
+    height : 10vh;
+    width: 70vw;
+    margin-top: 8px;
+}
+
+.display div{
+    width: 33%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controls{
+    height: 10vh;
+    position: absolute;
+    bottom:8px;
+    width: 70vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controls button{
+    border: 2px solid slateblue;
+    width: 160px;
+    padding: 8px;
+}
+
+.waves{
+    position: relative;
+}
+
+.mediumWaves{
+    height: 4vw;
+}
+
+.wave{
+    position: absolute;
+    bottom: 0;
+    transform: scaleY(0.7) translateY(60px);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.301), rgba(0, 0, 0, 0.041), rgba(255, 255, 255, 0));
+    animation-name: wave;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}
+
+.wave1{
+    animation-delay: 0s;
+}
+
+.wave2{
+    animation-delay: 1s;
+    z-index: -1;
+}
+
+.wave3{
+    animation-delay: 2s;
+    z-index: -1;
+}
+
+.wave4{
+    animation-delay: 3s;
+}
+
+.ship-container{
+    position: absolute;
+    bottom: 12vh;
+    width: 100%;
+}
+
+.ship{
+    width: 100px;
+    aspect-ratio: 1;
+    transform: rotate(360deg);
+}
+
+.ship img{
+    animation-name: shipwave;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+.shipcome{
+    animation-name: shipcome;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.shipgo{
+    animation-name: shipgo;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.drowned{
+    margin-left: 43%;
+    animation-name: drowned;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+}
+
+@keyframes drowned {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        transform: translateY(-80px) rotate(90deg);
+        opacity: 1;
+    }
+    100%{
+        transform: rotate(90deg);
+        opacity: 0;
+    }
+}
+
+@keyframes shipcome {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        margin-left: 43%;
+    }
+}
+
+@keyframes shipgo {
+    0%{
+        margin-left: 43%;
+    }
+    100%{
+        margin-left: 80%;
+        opacity: 0;
+    }
+}
+
+@keyframes wave {
+    50%{
+        transform: scaleY(0.7) translateY(50px);
+    }
+}
+
+@keyframes shipwave {
+    33%{
+        transform: rotate(2deg);
+    }
+    66%{
+        transform: rotate(-2deg);
+    }
+}
