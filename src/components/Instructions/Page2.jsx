@@ -1,23 +1,21 @@
 import React from "react";
-import game_start from "../../sound/game_start.mp3";
 
-function Page2({ setShowInstructions }) {
-  const game_start_effect = new Audio(game_start);
+function Page2({ name, setName }) {
+  const nameHandler = (e) => {
+    setName(e.target.value.trim());
+  };
 
   return (
     <>
-      <div className="heading text-xl text-center">Choose mode</div>
+      <div className="heading text-xl text-center">Enter your name</div>
       <div className="flex flex-col justify-center items-center text-center p-4 h-5/6">
         <div className="flex flex-col space-y-2">
-          <button
-            onClick={() => {
-              setShowInstructions(false);
-              game_start_effect.play();
-            }}
-          >
-            Single Player
-          </button>
-          <button className="disabled">Multi Player</button>
+          <input
+            type="text"
+            value={name}
+            onChange={nameHandler}
+            className="p-2 border-2"
+          ></input>
         </div>
       </div>
     </>

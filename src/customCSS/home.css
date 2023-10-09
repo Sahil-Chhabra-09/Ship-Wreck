@@ -147,7 +147,7 @@ box-shadow:  22px 22px 100px #38363c,
 
 .ship-container-2{
     position: absolute;
-    bottom: 16vh;
+    bottom: 20vh;
     width: 100%;
 }
 
@@ -177,6 +177,7 @@ box-shadow:  22px 22px 100px #38363c,
     animation-fill-mode: forwards;
 }
 
+
 .shipgo{
     animation-name: shipgo;
     animation-duration: 2s;
@@ -187,6 +188,31 @@ box-shadow:  22px 22px 100px #38363c,
 
 .drowned{
     margin-left: 43%;
+    animation-name: drowned;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+}
+
+.shipcome-2{
+    animation-name: shipcome2;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.shipgo-2{
+    animation-name: shipgo2;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+
+.drowned-2{
+    margin-left: 33%;
     animation-name: drowned;
     animation-duration: 2s;
     animation-timing-function: linear;
@@ -222,6 +248,25 @@ box-shadow:  22px 22px 100px #38363c,
     }
     100%{
         margin-left: 80%;
+        opacity: 0;
+    }
+}
+
+@keyframes shipcome2 {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        margin-left: 33%;
+    }
+}
+
+@keyframes shipgo2 {
+    0%{
+        margin-left: 33%;
+    }
+    100%{
+        margin-left: 60%;
         opacity: 0;
     }
 }

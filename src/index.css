@@ -13,3 +13,16 @@ html{
 body{
     background-color: beige;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #68410a; /* Customize the color of the thumb */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: beige; /* Customize the color of the track */
+  }
+  

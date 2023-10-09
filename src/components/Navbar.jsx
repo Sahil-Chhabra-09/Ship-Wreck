@@ -2,7 +2,7 @@ import React from "react";
 import "../customCSS/navbar.css";
 import click from "../sound/click.mp3";
 
-function Navbar({ setShowInstructions }) {
+function Navbar({ setShowInstructions, setShowHighScores }) {
   const click_effect = new Audio(click);
 
   return (
@@ -17,12 +17,16 @@ function Navbar({ setShowInstructions }) {
         Instructions
       </div>
       <div className="ship-wreck hidden md:block">Ship Wreck</div>
-      <img
-        src="../favicon.ico"
-        style={{ width: "50px", height: "50px" }}
-        className="md:hidden"
-      ></img>
-      <div className="cursor-pointer">High Scores</div>
+
+      <div
+        className="cursor-pointer"
+        onClick={() => {
+          setShowHighScores(true);
+          click_effect.play();
+        }}
+      >
+        High Scores
+      </div>
     </div>
   );
 }

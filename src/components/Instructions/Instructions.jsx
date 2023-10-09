@@ -1,25 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Page1 from "./Page1";
 import "../../customCSS/instructions.css";
 import Page2 from "./Page2";
 import click from "../../sound/click.mp3";
+import Page3 from "./Page3";
+import RenderModal from "../RenderModal";
 
 function Instructions({ showInstructions = false, setShowInstructions }) {
   const [stage, setStage] = useState(1);
+  const [name, setName] = useState("");
+  const [isnameInvalid, setIsnameInvalid] = useState(false);
   const click_effect = new Audio(click);
+
+  useEffect(() => {
+    setName(localStorage.getItem("userName"));
+  }, []);
+
+  useEffect(() => {
+    if (name != null && name.length >= 2 && name.length <= 30) {
+      setIsnameInvalid(true);
+    } else {
+      setIsnameInvalid(false);
+    }
+  }, [name]);
 
   const renderPages = () => {
     if (stage === 1) {
       return <Page1 />;
     }
     if (stage === 2) {
-      return <Page2 setShowInstructions={setShowInstructions} />;
+      return <Page2 name={name} setName={setName} />;
+    }
+    if (stage == 3) {
+      return <Page3 setShowInstructions={setShowInstructions} />;
     }
   };
 
   const nextHandler = () => {
-    if (stage === 2) return;
+    if (stage === 3) return;
     else {
+      if (stage === 2 && isnameInvalid) {
+        localStorage.setItem("userName", name);
+      }
       setStage((prev) => prev + 1);
       click_effect.play();
     }
@@ -35,28 +57,28 @@ function Instructions({ showInstructions = false, setShowInstructions }) {
 
   if (!showInstructions) return <></>;
   return (
-    <div className="modal w-screen h-screen absolute z-10">
-      <div className="container border-2 border-white w-1/2 h-2/3 bg-white relative">
-        {renderPages()}
-        <div
-          className="absolute bottom-0 flex justify-around items-center h-12 border-t-2"
-          style={{ width: "100%" }}
+    <RenderModal>
+      {renderPages()}
+      <div
+        className="absolute bottom-0 flex justify-around items-center h-12 border-t-2"
+        style={{ width: "100%" }}
+      >
+        <button
+          onClick={prevHandler}
+          className={`${stage === 1 && "disabled"}`}
         >
-          <button
-            onClick={prevHandler}
-            className={`${stage === 1 && "disabled"}`}
-          >
-            Prev
-          </button>
-          <button
-            onClick={nextHandler}
-            className={`${stage === 2 && "disabled"}`}
-          >
-            Next
-          </button>
-        </div>
+          Prev
+        </button>
+        <button
+          onClick={nextHandler}
+          className={`${stage === 3 && "disabled"} ${
+            stage === 2 && !isnameInvalid && "disabled"
+          }`}
+        >
+          Next
+        </button>
       </div>
-    </div>
+    </RenderModal>
   );
 }
 
