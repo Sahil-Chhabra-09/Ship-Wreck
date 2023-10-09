@@ -10,7 +10,7 @@ import { useMediaQuery } from "@mui/material";
 
 function Home() {
   const [deliver, setDeliver] = useState(false);
-  const [ships, setShips] = useState(5);
+  const [ships, setShips] = useState(45);
   const [cargo, setCargo] = useState(0);
   const [supplied, setSupplied] = useState(0);
   const [gameEnded, setGameEnded] = useState(false);
@@ -37,7 +37,7 @@ function Home() {
 
   useEffect(() => {
     if (intervalId === null && isBgMusicDisabled === false) {
-      const tempInterval = setInterval(checkBackgroundAudio, 300);
+      const tempInterval = setInterval(checkBackgroundAudio, 200);
       setIntervalId(tempInterval);
     } else {
       if (intervalId !== null) {

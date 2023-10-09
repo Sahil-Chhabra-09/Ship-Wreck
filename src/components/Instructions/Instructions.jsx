@@ -10,7 +10,7 @@ function Instructions({ showInstructions = false, setShowInstructions }) {
   const [stage, setStage] = useState(1);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [isnameInvalid, setIsnameInvalid] = useState(false);
+  const [isNamevalid, setIsNamevalid] = useState(false);
   const click_effect = new Audio(click);
 
   useEffect(() => {
@@ -26,9 +26,9 @@ function Instructions({ showInstructions = false, setShowInstructions }) {
       name.length >= 2 &&
       name.length <= 30
     ) {
-      setIsnameInvalid(true);
+      setIsNamevalid(true);
     } else {
-      setIsnameInvalid(false);
+      setIsNamevalid(false);
     }
   }, [name, password]);
 
@@ -46,7 +46,7 @@ function Instructions({ showInstructions = false, setShowInstructions }) {
         />
       );
     }
-    if (stage == 3) {
+    if (stage === 3) {
       return <Page3 setShowInstructions={setShowInstructions} />;
     }
   };
@@ -54,9 +54,13 @@ function Instructions({ showInstructions = false, setShowInstructions }) {
   const nextHandler = () => {
     if (stage === 3) return;
     else {
-      if (stage === 2 && isnameInvalid) {
-        localStorage.setItem("userName", name);
-        localStorage.setItem("password", password);
+      if (stage === 2) {
+        if (isNamevalid) {
+          localStorage.setItem("userName", name);
+          localStorage.setItem("password", password);
+        } else {
+          return;
+        }
       }
       setStage((prev) => prev + 1);
       click_effect.play();
@@ -88,7 +92,7 @@ function Instructions({ showInstructions = false, setShowInstructions }) {
         <button
           onClick={nextHandler}
           className={`${stage === 3 && "disabled"} ${
-            stage === 2 && !isnameInvalid && "disabled"
+            stage === 2 && !isNamevalid && "disabled"
           }`}
         >
           Next
