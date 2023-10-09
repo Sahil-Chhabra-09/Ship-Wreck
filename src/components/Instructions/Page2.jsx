@@ -1,8 +1,11 @@
 import React from "react";
 
-function Page2({ name, setName }) {
+function Page2({ name, setName, password, setPassword }) {
   const nameHandler = (e) => {
     setName(e.target.value.trim());
+  };
+  const passwordHandler = (e) => {
+    setPassword(e.target.value.trim());
   };
 
   return (
@@ -15,6 +18,14 @@ function Page2({ name, setName }) {
             value={name}
             onChange={nameHandler}
             className="p-2 border-2"
+            placeholder="User Name"
+          ></input>
+          <input
+            type="text"
+            value={password}
+            onChange={passwordHandler}
+            className="p-2 border-2"
+            placeholder="Password"
           ></input>
         </div>
       </div>

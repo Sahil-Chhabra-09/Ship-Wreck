@@ -14,7 +14,7 @@ function HighScores({ showHighScores, setShowHighScores }) {
   return (
     <RenderModal>
       <div className="heading text-xl text-center">HighScores</div>
-      <div className="border-2 text-center overflow-y-scroll h-5/6">
+      <div className="text-center overflow-y-scroll h-5/6">
         <RenderScores />
         <div
           className="absolute bottom-0 flex justify-around items-center h-12 border-t-2"

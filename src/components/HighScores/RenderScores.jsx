@@ -16,10 +16,10 @@ function RenderScores() {
   };
   return (
     <div>
-      {scores.map(({ userName, score }) => {
+      {scores.map(({ userName, score, _id }) => {
         return (
           <>
-            <div>
+            <div key={_id}>
               <span>{userName}</span>
               <span> </span>
               <span>{score}</span>

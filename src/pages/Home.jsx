@@ -10,7 +10,7 @@ import { useMediaQuery } from "@mui/material";
 
 function Home() {
   const [deliver, setDeliver] = useState(false);
-  const [ships, setShips] = useState(45);
+  const [ships, setShips] = useState(5);
   const [cargo, setCargo] = useState(0);
   const [supplied, setSupplied] = useState(0);
   const [gameEnded, setGameEnded] = useState(false);
@@ -82,6 +82,7 @@ function Home() {
     try {
       await axios.patch(`${apiUrl}/scores`, {
         name: localStorage.getItem("userName"),
+        password: localStorage.getItem("password"),
         score: supplied,
       });
     } catch (error) {
@@ -153,7 +154,7 @@ function Home() {
         </div>
 
         {/*prevents drag, drop and svg selection of ship and waves */}
-        <div className="overlook"></div>
+        <div className="overlook max-sm:hidden"></div>
 
         {/* Entirety of ship and waves */}
         {isDesktop ? (
@@ -192,14 +193,25 @@ function Home() {
 
         {/* Control Panel */}
         <div className="controls">
-          <div className="space-x-2 md:space-x-12 max-sm:space-x-0 max-sm:w-full max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center">
-            <button onClick={gameEnded ? () => {} : handleCargo}>
-              Add Cargo
-            </button>
-            <button onClick={gameEnded ? () => {} : handleDeliver}>
-              Deliver
-            </button>
-          </div>
+          {isDesktop ? (
+            <div className="space-x-2 md:space-x-12 max-sm:space-x-0 max-sm:w-full max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center max-sm:text-white">
+              <button onClick={gameEnded ? () => {} : handleCargo}>
+                Add Cargo
+              </button>
+              <button onClick={gameEnded ? () => {} : handleDeliver}>
+                Deliver
+              </button>
+            </div>
+          ) : (
+            <div className="mb-2 space-y-1 w-full flex flex-col justify-center items-center">
+              <button onClick={gameEnded ? () => {} : handleCargo}>
+                Add Cargo
+              </button>
+              <button onClick={gameEnded ? () => {} : handleDeliver}>
+                Deliver
+              </button>
+            </div>
+          )}
         </div>
         <div
           className="music absolute bottom-0 right-0 cursor-pointer"
