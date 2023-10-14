@@ -3,6 +3,7 @@ import axios from "axios";
 
 function RenderScores() {
   const [scores, setScores] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
@@ -10,21 +11,29 @@ function RenderScores() {
   }, []);
 
   const getScoresFromDB = async () => {
-    await axios.get(`${apiUrl}/scores`).then((res) => {
-      setScores(res.data.scores);
-    });
+    setIsLoading(true);
+    await axios
+      .get(`${apiUrl}/scores`)
+      .then((res) => {
+        setScores(res.data.scores);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       {scores.map(({ userName, score, _id }) => {
         return (
-          <>
-            <div key={_id}>
-              <span>{userName}</span>
-              <span> </span>
-              <span>{score}</span>
-            </div>
-          </>
+          <div key={_id}>
+            <span>{userName}</span>
+            <span> </span>
+            <span>{score}</span>
+          </div>
         );
       })}
     </div>

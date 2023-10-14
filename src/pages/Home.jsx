@@ -7,6 +7,7 @@ import levelComplete from "../sound/levelComplete.mp3";
 import background from "../sound/background.mp3";
 import axios from "axios";
 import { useMediaQuery } from "@mui/material";
+import { toast } from "react-toastify";
 
 function Home() {
   const [deliver, setDeliver] = useState(false);
@@ -131,6 +132,10 @@ function Home() {
   const handlePlayMusic = () => {
     setisBgMusicDisabled((prev) => !prev);
   };
+
+  const handleGameOver = () => {
+    toast.info("Reload screen to Play Again");
+  };
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <div className="parent">
@@ -195,19 +200,19 @@ function Home() {
         <div className="controls">
           {isDesktop ? (
             <div className="space-x-2 md:space-x-12 max-sm:space-x-0 max-sm:w-full max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center max-sm:text-white">
-              <button onClick={gameEnded ? () => {} : handleCargo}>
+              <button onClick={gameEnded ? handleGameOver : handleCargo}>
                 Add Cargo
               </button>
-              <button onClick={gameEnded ? () => {} : handleDeliver}>
+              <button onClick={gameEnded ? handleGameOver : handleDeliver}>
                 Deliver
               </button>
             </div>
           ) : (
             <div className="mb-2 space-y-1 w-full flex flex-col justify-center items-center">
-              <button onClick={gameEnded ? () => {} : handleCargo}>
+              <button onClick={gameEnded ? handleGameOver : handleCargo}>
                 Add Cargo
               </button>
-              <button onClick={gameEnded ? () => {} : handleDeliver}>
+              <button onClick={gameEnded ? handleGameOver : handleDeliver}>
                 Deliver
               </button>
             </div>
